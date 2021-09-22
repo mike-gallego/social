@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hashtagable/hashtagable.dart';
 import 'package:provider/provider.dart';
+import 'package:social/models/post.dart';
 import 'package:social/providers/post_provider.dart';
 import 'package:social/styles/texts.dart';
 import 'package:social/styles/textstyles.dart';
@@ -8,7 +9,10 @@ import 'package:social/widgets/post/comment_component.dart';
 import 'package:social/widgets/post/icon_component.dart';
 
 class PostComponent extends StatelessWidget {
-  const PostComponent({Key? key}) : super(key: key);
+  const PostComponent({Key? key, this.post, this.index}) : super(key: key);
+
+  final Post? post;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +88,7 @@ class PostComponent extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Wrap(
                       children: [
-                        for (String hashtag in provider.hashtags)
+                        for (String hashtag in post!.hashtags!)
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 4.0),
@@ -109,7 +113,11 @@ class PostComponent extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: Row(
                         children: [
-                          IconComponent(),
+                          IconComponent(
+                              index: index,
+                              label: 'thumb',
+                              outlineIcon: Icons.thumb_up_outlined,
+                              filledIcon: Icons.thumb_up),
                           Expanded(child: CommentComponent()),
                         ],
                       ),
