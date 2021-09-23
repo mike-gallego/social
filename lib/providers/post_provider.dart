@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:social/models/post.dart';
 import 'package:social/models/user.dart';
@@ -34,11 +35,16 @@ class PostProvider extends ChangeNotifier {
         comments: post.comments,
         hashtags: post.hashtags,
         postId: post.postId,
-        likes: post.liked! ? post.likes! - 1 : post.likes! + 1,
         liked: !post.liked!,
+        likes: post.liked! ? post.likes! - 1 : post.likes! + 1,
         commented: post.commented,
         imgPath: 'assets/cat.jpg',
       );
+
+      debugPrint(
+          _posts[_posts.indexWhere((element) => element.postId == post.postId)]
+              .liked
+              .toString());
     }
     notifyListeners();
   }
@@ -71,8 +77,13 @@ class PostProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchData() async {
-    final snapshot = await _firestoreService.fetchData();
+  Future<void> fetchData({String? lastId = ''}) async {
+    final QuerySnapshot<Map<String, dynamic>> snapshot;
+    if (lastId!.isNotEmpty) {
+      snapshot = await _firestoreService.fetchData(lastId: lastId);
+    } else {
+      snapshot = await _firestoreService.fetchData();
+    }
     for (var e in snapshot.docs) {
       _posts.add(
         Post(

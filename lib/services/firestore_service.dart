@@ -27,8 +27,17 @@ class FirestoreService {
     }
   }
 
-  Future<QuerySnapshot<Map<String, dynamic>>> fetchData() async {
-    return await _firebaseFirestore.collection('posts').limit(10).get();
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchData(
+      {String? lastId = ''}) async {
+    if (lastId!.isNotEmpty) {
+      return await _firebaseFirestore
+          .collection('posts')
+          .limit(10)
+          .orderBy('id')
+          .startAt([lastId]).get();
+    } else {
+      return await _firebaseFirestore.collection('posts').limit(10).get();
+    }
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> fetchAllData() async {

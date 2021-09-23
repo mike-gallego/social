@@ -44,7 +44,8 @@ class _FeedScreenState extends State<FeedScreen> {
                       GestureDetector(
                         onTap: () async {
                           provider.toggleLoading();
-                          await provider.fetchData();
+                          await provider.fetchData(
+                              lastId: provider.posts.last.postId);
                           provider.toggleLoading();
                         },
                         child: SizedBox(
