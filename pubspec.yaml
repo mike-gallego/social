@@ -36,10 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   hashtagable: ^2.0.2+1
   provider: ^5.0.0
-  uuid: ^3.0.4
-  colorful_safe_area: ^0.3.0
   firebase_core: ^1.6.0
   cloud_firestore: ^2.5.3
+  shimmer: ^2.0.0
+  uuid: ^3.0.4
 
 dev_dependencies:
   flutter_test:

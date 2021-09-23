@@ -4,17 +4,20 @@ import 'package:social/screens/comment_screen.dart';
 import 'package:social/styles/textstyles.dart';
 
 class CommentButtonComponent extends StatelessWidget {
-  const CommentButtonComponent({Key? key, this.post, this.tag})
-      : super(key: key);
+  const CommentButtonComponent({Key? key, this.post}) : super(key: key);
 
   final Post? post;
-  final String? tag;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async => await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => CommentScreen(post: post!, tag: tag!))),
+      onTap: () async => await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => CommentScreen(
+            post: post,
+          ),
+        ),
+      ),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
         decoration: const BoxDecoration(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:provider/provider.dart';
 import 'package:social/models/post.dart';
 import 'package:social/providers/post_provider.dart';
@@ -22,7 +21,7 @@ class CommentScreen extends StatelessWidget {
             expandedHeight: 300,
             flexibleSpace: SizedBox.expand(
               child: Hero(
-                tag: tag!,
+                tag: 'ID: ${post!.postId} - post-to-comment',
                 child: Image.asset(
                   post!.imgPath!,
                   width: double.infinity,

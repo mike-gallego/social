@@ -9,10 +9,9 @@ import 'package:social/widgets/post/comment_button_component.dart';
 import 'package:social/widgets/post/icon_component.dart';
 
 class PostComponent extends StatelessWidget {
-  const PostComponent({Key? key, this.post, this.index}) : super(key: key);
+  const PostComponent({Key? key, this.post}) : super(key: key);
 
   final Post? post;
-  final int? index;
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +41,8 @@ class PostComponent extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Komol Kuchkarov', style: darkText),
-                            Text('@Komol', style: lightText),
+                            Text(post!.user!.name!, style: darkText),
+                            Text(post!.user!.username!, style: lightText),
                           ],
                         ),
                       ),
@@ -61,7 +60,7 @@ class PostComponent extends StatelessWidget {
                 ),
                 Expanded(
                   child: Hero(
-                    tag: 'index: $index - post-to-comment',
+                    tag: 'ID: ${post!.postId} - post-to-comment',
                     child: Image.asset(
                       'assets/cat.jpg',
                       width: double.infinity,
@@ -119,20 +118,19 @@ class PostComponent extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: Row(
                         children: [
-                          IconComponent(
-                              index: index,
+                          const IconComponent(
                               label: 'thumb',
                               outlineIcon: Icons.thumb_up_outlined,
                               filledIcon: Icons.thumb_up),
-                          IconComponent(
-                              index: index,
+                          const IconComponent(
                               label: 'comment',
                               outlineIcon: Icons.comment_outlined,
                               filledIcon: Icons.comment),
                           Expanded(
-                              child: CommentButtonComponent(
-                                  post: post!,
-                                  tag: 'index: $index - post-to-comment')),
+                            child: CommentButtonComponent(
+                              post: post!,
+                            ),
+                          ),
                         ],
                       ),
                     ),

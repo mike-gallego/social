@@ -21,13 +21,16 @@ class IconComponent extends StatelessWidget {
           child: Row(
             children: [
               IconButton(
-                onPressed: () {
-                  Provider.of<PostProvider>(context, listen: false)
-                      .pressIcon(index: index!, label: label!);
+                onPressed: () async {
+                  await Provider.of<PostProvider>(context, listen: false)
+                      .pressIcon(label: 'comment');
+                  // await Provider.of<PostProvider>(context, listen: false)
+                  //     .pressIcon(index: index!, label: 'comment');
                 },
-                icon: provider.posts[index!].liked!
-                    ? Icon(filledIcon, color: Colors.orangeAccent)
-                    : Icon(outlineIcon),
+                icon: Icon(outlineIcon),
+                // icon: provider.posts[index!].liked!
+                //     ? Icon(filledIcon, color: Colors.orangeAccent)
+                //     : Icon(outlineIcon),
               ),
               Container(
                 height: 50,
