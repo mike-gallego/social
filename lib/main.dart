@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social/providers/post_provider.dart';
 import 'package:social/screens/feed_screen.dart';
-import 'package:social/widgets/post/post_component.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

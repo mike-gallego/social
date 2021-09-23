@@ -4,9 +4,11 @@ import 'package:social/screens/comment_screen.dart';
 import 'package:social/styles/textstyles.dart';
 
 class CommentButtonComponent extends StatelessWidget {
-  const CommentButtonComponent({Key? key, this.post}) : super(key: key);
+  const CommentButtonComponent({Key? key, this.post, this.index})
+      : super(key: key);
 
   final Post? post;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +17,7 @@ class CommentButtonComponent extends StatelessWidget {
         MaterialPageRoute(
           builder: (context) => CommentScreen(
             post: post,
+            index: index,
           ),
         ),
       ),

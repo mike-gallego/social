@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social/providers/post_provider.dart';
@@ -28,16 +27,20 @@ class _FeedScreenState extends State<FeedScreen> {
     return Consumer<PostProvider>(
       builder: (context, provider, _) {
         return FutureBuilder<void>(
-            future: fetchData,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return Scaffold(
-                  appBar: AppBar(
-                    title: const Text('Flutter social app'),
-                  ),
-                  body: SingleChildScrollView(
-                    child: Column(children: [
-                      for (var x in provider.posts) PostComponent(post: x),
+          future: fetchData,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Scaffold(
+                appBar: AppBar(
+                  title: const Text('Flutter social app'),
+                  centerTitle: true,
+                ),
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      for (var x in provider.posts)
+                        PostComponent(
+                            post: x, index: provider.posts.indexOf(x)),
                       GestureDetector(
                         onTap: () async {
                           provider.toggleLoading();
@@ -52,21 +55,27 @@ class _FeedScreenState extends State<FeedScreen> {
                                     : const Text('Load more',
                                         style: lightBlueText))),
                       )
-                    ]),
+                    ],
                   ),
-                );
-              } else {
-                return Scaffold(
-                    appBar: AppBar(
-                      title: const Text('Flutter social app'),
-                    ),
-                    body: SingleChildScrollView(
-                      child: Column(children: [
-                        for (int i = 0; i < 10; i++) const PostPlaceholder()
-                      ]),
-                    ));
-              }
-            });
+                ),
+              );
+            } else {
+              return Scaffold(
+                appBar: AppBar(
+                  title: const Text('Flutter social app'),
+                  centerTitle: true,
+                ),
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      for (int i = 0; i < 10; i++) const PostPlaceholder()
+                    ],
+                  ),
+                ),
+              );
+            }
+          },
+        );
       },
     );
   }

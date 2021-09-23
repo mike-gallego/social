@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social/models/post.dart';
-import 'package:social/models/user.dart';
 import 'package:social/providers/post_provider.dart';
-import 'package:social/styles/texts.dart';
 
 class IconComponent extends StatelessWidget {
   const IconComponent(

@@ -9,9 +9,10 @@ import 'package:social/widgets/post/comment_button_component.dart';
 import 'package:social/widgets/post/icon_component.dart';
 
 class PostComponent extends StatelessWidget {
-  const PostComponent({Key? key, this.post}) : super(key: key);
+  const PostComponent({Key? key, this.post, this.index}) : super(key: key);
 
   final Post? post;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,8 @@ class PostComponent extends StatelessWidget {
                 ),
                 Expanded(
                   child: Hero(
-                    tag: 'ID: ${post!.postId} - post-to-comment',
+                    tag:
+                        'Index: ${index.toString()}, ID: ${post!.postId} - post-to-comment',
                     child: Image.asset(
                       'assets/cat.jpg',
                       width: double.infinity,
@@ -130,8 +132,7 @@ class PostComponent extends StatelessWidget {
                               post: post!),
                           Expanded(
                             child: CommentButtonComponent(
-                              post: post!,
-                            ),
+                                post: post!, index: index!),
                           ),
                         ],
                       ),

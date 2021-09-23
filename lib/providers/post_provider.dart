@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:social/models/post.dart';
 import 'package:social/models/user.dart';
 import 'package:social/services/firestore_service.dart';
-import 'package:social/styles/texts.dart';
 
 class PostProvider extends ChangeNotifier {
   PostProvider() {
@@ -45,7 +43,8 @@ class PostProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addComment({required Post post}) async {
+  Future<void> addComment(
+      {required Post post, required BuildContext context}) async {
     List<String> newList = post.comments!;
     newList.add(_controller.text);
     _posts[_posts.indexWhere((element) => element.postId == post.postId)] =
@@ -64,26 +63,33 @@ class PostProvider extends ChangeNotifier {
         id: post.postId!, comment: controller.text);
     controller.clear();
     _inputNode.unfocus();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Message Sent!'),
+      ),
+    );
     notifyListeners();
   }
 
   Future<void> fetchData() async {
     final snapshot = await _firestoreService.fetchData();
     for (var e in snapshot.docs) {
-      _posts.add(Post(
-        user: User(
-            name: e.data()['name'],
-            username: e.data()['username'],
-            imgPath: e.data()['avatarImagePath']),
-        caption: e.data()['caption'],
-        comments: e.data()['comments'].cast<String>(),
-        hashtags: e.data()['hashtags'].cast<String>(),
-        imgPath: e.data()['imgPath'],
-        likes: e.data()['likes'],
-        postId: e.data()['id'],
-        liked: false,
-        commented: false,
-      ));
+      _posts.add(
+        Post(
+          user: User(
+              name: e.data()['name'],
+              username: e.data()['username'],
+              imgPath: e.data()['avatarImagePath']),
+          caption: e.data()['caption'],
+          comments: e.data()['comments'].cast<String>(),
+          hashtags: e.data()['hashtags'].cast<String>(),
+          imgPath: e.data()['imgPath'],
+          likes: e.data()['likes'],
+          postId: e.data()['id'],
+          liked: false,
+          commented: false,
+        ),
+      );
     }
     notifyListeners();
   }
