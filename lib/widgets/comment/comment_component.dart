@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:social/providers/post_provider.dart';
+import 'package:social/styles/menu_items.dart';
 import 'package:social/styles/textstyles.dart';
 
 class CommentComponent extends StatelessWidget {
@@ -41,14 +44,18 @@ class CommentComponent extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16.0),
                       child: Center(
-                          child:
-                              Text('- Barbara Santiago', style: commentAuthor)),
+                        child: Text('- Barbara Santiago', style: commentAuthor),
+                      ),
                     ),
                   ),
-                  IconButton(
-                      padding: const EdgeInsets.only(bottom: 4.0),
-                      onPressed: () => debugPrint('report'),
-                      icon: const Icon(Icons.more_horiz)),
+                  PopupMenuButton(
+                    icon: Icon(Icons.more_horiz),
+                    itemBuilder: (context) {
+                      return menu
+                          .map((e) => PopupMenuItem(child: Text(e)))
+                          .toList();
+                    },
+                  ),
                 ],
               ),
             ),
