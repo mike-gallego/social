@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:social/models/post.dart';
+import 'package:social/screens/comment_screen.dart';
 import 'package:social/styles/textstyles.dart';
 
-class CommentComponent extends StatelessWidget {
-  const CommentComponent({Key? key}) : super(key: key);
+class CommentButtonComponent extends StatelessWidget {
+  const CommentButtonComponent({Key? key, this.post, this.tag})
+      : super(key: key);
+
+  final Post? post;
+  final String? tag;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () async => await Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => CommentScreen(post: post!, tag: tag!))),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
         decoration: const BoxDecoration(
@@ -20,8 +28,8 @@ class CommentComponent extends StatelessWidget {
             )
           ],
         ),
-        child: Center(
-          child: Text('Comment about this', style: buttonText),
+        child: const Center(
+          child: Text('Comment', style: buttonText),
         ),
       ),
     );

@@ -5,7 +5,7 @@ import 'package:social/models/post.dart';
 import 'package:social/providers/post_provider.dart';
 import 'package:social/styles/texts.dart';
 import 'package:social/styles/textstyles.dart';
-import 'package:social/widgets/post/comment_component.dart';
+import 'package:social/widgets/post/comment_button_component.dart';
 import 'package:social/widgets/post/icon_component.dart';
 
 class PostComponent extends StatelessWidget {
@@ -60,10 +60,13 @@ class PostComponent extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: Image.asset(
-                    'assets/cat.jpg',
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: 'index: $index - post-to-comment',
+                    child: Image.asset(
+                      'assets/cat.jpg',
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -80,7 +83,10 @@ class PostComponent extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Divider(),
+                const Divider(
+                  color: Colors.grey,
+                  thickness: 0.3,
+                ),
                 SizedBox(
                   height: 50,
                   width: double.infinity,
@@ -118,7 +124,15 @@ class PostComponent extends StatelessWidget {
                               label: 'thumb',
                               outlineIcon: Icons.thumb_up_outlined,
                               filledIcon: Icons.thumb_up),
-                          Expanded(child: CommentComponent()),
+                          IconComponent(
+                              index: index,
+                              label: 'comment',
+                              outlineIcon: Icons.comment_outlined,
+                              filledIcon: Icons.comment),
+                          Expanded(
+                              child: CommentButtonComponent(
+                                  post: post!,
+                                  tag: 'index: $index - post-to-comment')),
                         ],
                       ),
                     ),

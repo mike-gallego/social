@@ -22,3 +22,19 @@ const buttonText = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.w400,
 );
+
+final commentHeading = TextStyle(
+  fontSize: 14.0,
+  color: Colors.grey[600],
+);
+
+final commentText = TextStyle(
+  fontSize: 14.0,
+  color: Colors.grey[800],
+);
+
+final commentAuthor = TextStyle(
+  fontSize: 14.0,
+  color: Colors.grey[600],
+  fontStyle: FontStyle.italic,
+);

@@ -37,6 +37,7 @@ dependencies:
   hashtagable: ^2.0.2+1
   provider: ^5.0.0
   uuid: ^3.0.4
+  colorful_safe_area: ^0.3.0
 
 dev_dependencies:
   flutter_test:

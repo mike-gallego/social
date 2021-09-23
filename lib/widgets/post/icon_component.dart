@@ -26,8 +26,8 @@ class IconComponent extends StatelessWidget {
                       .pressIcon(index: index!, label: label!);
                 },
                 icon: provider.posts[index!].liked!
-                    ? Icon(outlineIcon)
-                    : Icon(filledIcon),
+                    ? Icon(filledIcon, color: Colors.orangeAccent)
+                    : Icon(outlineIcon),
               ),
               Container(
                 height: 50,

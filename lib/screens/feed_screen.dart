@@ -11,6 +11,9 @@ class FeedScreen extends StatelessWidget {
     return Consumer<PostProvider>(
       builder: (context, provider, _) {
         return Scaffold(
+          appBar: AppBar(
+            title: const Text('Flutter social app'),
+          ),
           body: SingleChildScrollView(
             child: Column(children: [
               for (int i = 0; i < provider.posts.length; i++)
