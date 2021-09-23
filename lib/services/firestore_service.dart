@@ -36,7 +36,11 @@ class FirestoreService {
           .orderBy('id')
           .startAt([lastId]).get();
     } else {
-      return await _firebaseFirestore.collection('posts').limit(10).get();
+      return await _firebaseFirestore
+          .collection('posts')
+          .limit(10)
+          .orderBy('id')
+          .get();
     }
   }
 
