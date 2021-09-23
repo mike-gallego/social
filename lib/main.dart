@@ -20,12 +20,9 @@ class MyApp extends StatelessWidget {
           lazy: false,
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         title: 'Flutter Social Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const FeedScreen(),
+        home: FeedScreen(),
       ),
     );
   }

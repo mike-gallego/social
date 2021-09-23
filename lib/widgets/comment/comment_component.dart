@@ -7,52 +7,49 @@ class CommentComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Container(
-        height: 75,
+        height: 100,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+          color: Colors.grey[100],
           boxShadow: const [
             BoxShadow(
               color: Colors.black54,
-              blurRadius: 5.0,
+              blurRadius: 2.0,
               offset: Offset(0.0, 0.75),
             )
           ],
         ),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 8.0,
-                  left: 8.0,
-                  bottom: 8.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                        child: Text(
-                      'This cat is amazing!!!',
-                      maxLines: 1,
-                      style: commentText,
-                    )),
-                    Text('- Barbara Santiago', style: commentAuthor)
-                  ],
-                ),
+                padding: const EdgeInsets.all(8.0),
+                child: Text('This cat is amazing!!!', style: commentText),
               ),
             ),
             SizedBox(
-              height: double.infinity,
-              child: IconButton(
-                  alignment: Alignment.bottomCenter,
-                  padding: const EdgeInsets.only(bottom: 4.0),
-                  onPressed: () => debugPrint('report'),
-                  icon: const Icon(Icons.more_horiz)),
-            )
+              height: 40,
+              width: double.infinity,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16.0),
+                      child: Center(
+                          child:
+                              Text('- Barbara Santiago', style: commentAuthor)),
+                    ),
+                  ),
+                  IconButton(
+                      padding: const EdgeInsets.only(bottom: 4.0),
+                      onPressed: () => debugPrint('report'),
+                      icon: const Icon(Icons.more_horiz)),
+                ],
+              ),
+            ),
           ],
         ),
       ),

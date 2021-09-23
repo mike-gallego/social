@@ -5,6 +5,17 @@ import 'package:social/styles/texts.dart';
 import 'package:uuid/uuid.dart';
 
 class PostProvider extends ChangeNotifier {
+  PostProvider() {
+    _controller = TextEditingController();
+    _inputNode = FocusNode();
+  }
+
+  late TextEditingController _controller;
+  TextEditingController get controller => _controller;
+
+  late FocusNode _inputNode;
+  FocusNode get inputNode => _inputNode;
+
   final Map<String, int> _counters = {
     'thumb': 17,
   };
