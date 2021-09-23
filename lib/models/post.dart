@@ -7,7 +7,7 @@ class Post {
   final String? caption;
   final List<String>? hashtags;
   int? likes;
-  int? comments;
+  List<String>? comments;
   bool? liked;
   bool? commented;
 

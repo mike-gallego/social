@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social/models/post.dart';
+import 'package:social/models/user.dart';
 import 'package:social/providers/post_provider.dart';
+import 'package:social/styles/texts.dart';
 
 class IconComponent extends StatelessWidget {
   const IconComponent(
@@ -51,10 +53,7 @@ class IconComponent extends StatelessWidget {
             child: Row(
               children: [
                 IconButton(
-                  onPressed: () async {
-                    await Provider.of<PostProvider>(context, listen: false)
-                        .pressIcon(label: label!, post: post!);
-                  },
+                  onPressed: () async {},
                   icon: !post!.commented!
                       ? Icon(outlineIcon)
                       : Icon(filledIcon, color: Colors.orangeAccent),
@@ -67,7 +66,7 @@ class IconComponent extends StatelessWidget {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20.0))),
                   child: Center(
-                    child: Text(post!.comments!.toString()),
+                    child: Text(post!.comments!.length.toString()),
                   ),
                 ),
               ],

@@ -36,14 +36,31 @@ class FirestoreService {
     return await _firebaseFirestore.collection('posts').get();
   }
 
-  Future<void> updateLike({required String id}) async {
+  Future<void> updateLike({required String id, required bool liked}) async {
     final documentReference = _firebaseFirestore.collection('posts').doc(id);
 
     _firebaseFirestore.runTransaction((transaction) async {
       final snapshot = await documentReference.get();
 
-      transaction.update(documentReference,
-          <String, dynamic>{'likes': snapshot.data()!['likes'] + 1});
+      transaction.update(documentReference, <String, dynamic>{
+        'likes': liked
+            ? snapshot.data()!['likes'] - 1
+            : snapshot.data()!['likes'] + 1
+      });
+    });
+  }
+
+  Future<void> updateComment(
+      {required String id, required String comment}) async {
+    final documentReference = _firebaseFirestore.collection('posts').doc(id);
+
+    _firebaseFirestore.runTransaction((transaction) async {
+      final snapshot = await documentReference.get();
+      List<String> newList = snapshot.data()!['comments'].cast<String>();
+      newList.add(comment);
+
+      transaction
+          .update(documentReference, <String, dynamic>{'comments': newList});
     });
   }
 }

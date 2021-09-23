@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:social/styles/textstyles.dart';
 
 class CommentComponent extends StatelessWidget {
-  const CommentComponent({Key? key}) : super(key: key);
+  const CommentComponent({Key? key, this.comment}) : super(key: key);
+
+  final String? comment;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class CommentComponent extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('This cat is amazing!!!', style: commentText),
+                child: Text(comment!, style: commentText),
               ),
             ),
             SizedBox(

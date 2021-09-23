@@ -34,33 +34,38 @@ class CommentScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(post!.caption!, style: darkText),
-                  ),
-                  Row(children: [
-                    const Expanded(
-                      child: Divider(
-                        indent: 16.0,
-                        endIndent: 16.0,
-                        thickness: 1.0,
-                      ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(post!.caption!, style: darkText),
                     ),
-                    Text('Comments', style: commentHeading),
-                    const Expanded(
-                      child: Divider(
-                        indent: 16.0,
-                        endIndent: 16.0,
-                        thickness: 1.0,
-                      ),
+                    Row(
+                      children: [
+                        const Expanded(
+                          child: Divider(
+                            indent: 16.0,
+                            endIndent: 16.0,
+                            thickness: 1.0,
+                          ),
+                        ),
+                        Text('Comments', style: commentHeading),
+                        const Expanded(
+                          child: Divider(
+                            indent: 16.0,
+                            endIndent: 16.0,
+                            thickness: 1.0,
+                          ),
+                        ),
+                      ],
                     ),
-                  ]),
-                ]),
+                  ],
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                       child: Column(children: [
-                    for (int i = 0; i < 10; i++) const CommentComponent()
+                    for (var comment in post!.comments!)
+                      CommentComponent(comment: comment)
                   ])),
                 ),
                 Container(
@@ -95,7 +100,9 @@ class CommentScreen extends StatelessWidget {
                         child: IconButton(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           icon: const Icon(Icons.send),
-                          onPressed: () => debugPrint('send'),
+                          onPressed: () async {
+                            await provider.addComment(post: post!);
+                          },
                         ),
                       ),
                     ],
