@@ -13,8 +13,9 @@ class FirestoreService {
   Future<void> createDummyData({required Post post}) async {
     final collection = _firebaseFirestore.collection('posts');
     for (int i = 0; i < 30; i++) {
-      await collection.add({
-        "id": const Uuid().v4(),
+      final docId = const Uuid().v4();
+      await collection.doc(docId).set({
+        "id": docId,
         "name": post.user!.name,
         "username": post.user!.username,
         "caption": post.caption,
@@ -33,5 +34,16 @@ class FirestoreService {
 
   Future<QuerySnapshot<Map<String, dynamic>>> fetchAllData() async {
     return await _firebaseFirestore.collection('posts').get();
+  }
+
+  Future<void> updateLike({required String id}) async {
+    final documentReference = _firebaseFirestore.collection('posts').doc(id);
+
+    _firebaseFirestore.runTransaction((transaction) async {
+      final snapshot = await documentReference.get();
+
+      transaction.update(documentReference,
+          <String, dynamic>{'likes': snapshot.data()!['likes'] + 1});
+    });
   }
 }

@@ -118,14 +118,16 @@ class PostComponent extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: Row(
                         children: [
-                          const IconComponent(
+                          IconComponent(
                               label: 'thumb',
                               outlineIcon: Icons.thumb_up_outlined,
-                              filledIcon: Icons.thumb_up),
-                          const IconComponent(
+                              filledIcon: Icons.thumb_up,
+                              post: post!),
+                          IconComponent(
                               label: 'comment',
                               outlineIcon: Icons.comment_outlined,
-                              filledIcon: Icons.comment),
+                              filledIcon: Icons.comment,
+                              post: post!),
                           Expanded(
                             child: CommentButtonComponent(
                               post: post!,

@@ -23,20 +23,28 @@ class PostProvider extends ChangeNotifier {
   bool? _isLoading = false;
   bool? get isLoading => _isLoading;
 
-  Future<void> pressIcon({required String label}) async {
+  final List<Post> _posts = [];
+  List<Post> get posts => _posts;
+
+  Future<void> pressIcon({required String label, required Post post}) async {
     if (label == 'thumb') {
-      //_posts[index].liked = !_posts[index].liked!;
+      // if (toggle true)
+      await _firestoreService.updateLike(id: post.postId!);
+      _posts[_posts.indexWhere((element) => element.postId == post.postId)] =
+          Post(
+              user: post.user,
+              caption: post.caption,
+              comments: post.comments,
+              hashtags: post.hashtags,
+              postId: post.postId,
+              likes: post.likes! + 1,
+              liked: true,
+              commented: post.commented,
+              imgPath: 'assets/person.jpg');
+      // else remove like
     } else {
-      //await _createDummyData(post: _posts[0]);
+      await _createDummyData(post: _posts[0]);
     }
-    notifyListeners();
-  }
-
-  Future<void> _createDummyData({required Post post}) async {
-    await _firestoreService.createDummyData(post: post);
-  }
-
-  void refreshUI() {
     notifyListeners();
   }
 
@@ -54,6 +62,8 @@ class PostProvider extends ChangeNotifier {
         imgPath: e.data()['imgPath'],
         likes: e.data()['likes'],
         postId: e.data()['id'],
+        liked: false,
+        commented: false,
       ));
     }
     notifyListeners();
@@ -64,6 +74,13 @@ class PostProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  final List<Post> _posts = [];
-  List<Post> get posts => _posts;
+  //utils
+
+  void refreshUI() {
+    notifyListeners();
+  }
+
+  Future<void> _createDummyData({required Post post}) async {
+    await _firestoreService.createDummyData(post: post);
+  }
 }
